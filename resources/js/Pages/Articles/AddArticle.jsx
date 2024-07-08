@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { router } from "@inertiajs/react";
 
 const AddArticle = ({ auth }) => {
     const [title, setTitle] = useState("");
@@ -22,8 +23,10 @@ const AddArticle = ({ auth }) => {
         formData.append("content", content);
         formData.append("category", category);
         formData.append("image", image);
+        formData.append("user_id", auth.user.id);
 
-        Inertia.post("/articles", formData);
+        console.log(formData);
+        router.post("/articles", formData);
     };
 
     return (

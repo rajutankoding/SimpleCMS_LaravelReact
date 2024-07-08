@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::get('/articles/create', function () {
 Route::get('/articles', function () {
     return Inertia::render('Articles/ArticlesPages');
 })->middleware(['auth', 'verified'])->name('articles');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles');
 
 Route::get('/addBanners', function () {
     return Inertia::render('Banners/BannerPages');
