@@ -55,7 +55,10 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        $articles= Article::orderBy('created_at','desc')->get();
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        foreach ($articles as $article) {
+            $article->image_url = url('public/' . $article->image);
+        }
         return response()->json($articles);
     }
 
