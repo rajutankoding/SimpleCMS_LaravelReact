@@ -15,10 +15,9 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('created_at', 'desc')->get();
-        return Inertia::render('Articles/ArticlesPages',[
+        return Inertia::render('Articles/ArticlesPages', [
             'articles' => $articles
         ]);
-        // return view('articles.index', compact('articles'));
     }
 
     /**
@@ -35,7 +34,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
-        $slug = Str::slug($request->input('title'),'-');
+        $slug = Str::slug($request->input('title'), '-');
 
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
@@ -55,7 +54,12 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        $articles= Article::orderBy('created_at','desc')->get();
+
+        $articles = Article::orderBy('created_at', 'desc')->get()->map(function ($article) {
+            $article->image_url = url('images/' . $article->image);
+            return $article;
+        });
+
         return response()->json($articles);
     }
 
