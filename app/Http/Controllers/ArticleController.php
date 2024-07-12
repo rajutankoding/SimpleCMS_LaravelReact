@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
@@ -12,7 +14,11 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Articles/ArticlesPages',[
+            'articles' => $articles
+        ]);
+        // return view('articles.index', compact('articles'));
     }
 
     /**
@@ -29,11 +35,13 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
+        $slug = Str::slug($request->input('title'),'-');
 
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $imageName);
         $article = new Article();
         $article->title = $request->input('title');
+        $article->slug = $slug;
         $article->content = $request->input('content');
         $article->image = $imageName;
         $article->category = $request->input('category');
@@ -47,7 +55,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        $articles= Article::orderBy('created_at','desc')->get();
+        return response()->json($articles);
     }
 
     /**

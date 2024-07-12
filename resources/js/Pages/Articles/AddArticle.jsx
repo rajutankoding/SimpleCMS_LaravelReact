@@ -1,6 +1,10 @@
+// resources/js/Pages/AddArticle.js
+
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { router } from "@inertiajs/react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const AddArticle = ({ auth }) => {
     const [title, setTitle] = useState("");
@@ -25,8 +29,14 @@ const AddArticle = ({ auth }) => {
         formData.append("image", image);
         formData.append("user_id", auth.user.id);
 
-        console.log(formData);
-        router.post("/articles", formData);
+        router.post("/articles", formData, {
+            onError: (errors) => {
+                console.log(errors);
+            },
+            onSuccess: () => {
+                console.log("Article created successfully");
+            },
+        });
     };
 
     return (
@@ -64,14 +74,12 @@ const AddArticle = ({ auth }) => {
                         >
                             Isi Artikel
                         </label>
-                        <textarea
-                            id="content"
+                        <ReactQuill
                             value={content}
-                            onChange={(e) => setContent(e.target.value)}
+                            onChange={setContent}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            rows="5"
                             required
-                        ></textarea>
+                        />
                     </div>
                     <div className="mb-4">
                         <label

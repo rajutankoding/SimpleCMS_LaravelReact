@@ -5,7 +5,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import TableListComponent from "@/Components/TableListComponent";
 import NavLink from "@/Components/NavLink";
 
-const ArticlesPages = ({ auth }) => {
+const ArticlesPages = ({ articles, auth }) => {
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -26,7 +26,7 @@ const ArticlesPages = ({ auth }) => {
                                     + Articles
                                 </button>
                             </NavLink>
-                            <TableListComponent />
+                            <TableListComponent articles={articles} />
                         </div>
                     </div>
                 </div>
