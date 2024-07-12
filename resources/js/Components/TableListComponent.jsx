@@ -34,7 +34,7 @@ const TableListComponent = ({ articles }) => {
                                     <div className="avatar">
                                         <div className="mask mask-squircle h-12 w-12">
                                             <img
-                                                src="http://192.168.5.3:8000/public/1720656993.jpg"
+                                                src={`/images/${item.image}`}
                                                 alt="Avatar Tailwind CSS Component"
                                             />
                                         </div>
