@@ -23,9 +23,10 @@ Route::get('/articles/create', function () {
     return Inertia::render('Articles/AddArticle');
 })->middleware(['auth', 'verified'])->name('articles.create');
 
-Route::get('/articles',[ArticleController::class,'index'])->middleware(['auth', 'verified'])->name('articles');
+Route::get('/articles', [ArticleController::class, 'index'])->middleware(['auth', 'verified'])->name('articles');
 
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles');
+Route::post('/articles', [ArticleController::class, 'store'])->name('addArticles');
+Route::delete('/articles/{article:id}', [ArticleController::class, 'destroy'])->name('articleDelete');
 
 Route::get('/addBanners', function () {
     return Inertia::render('Banners/BannerPages');

@@ -144,6 +144,18 @@ export default function Authenticated({ user, header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("addBanners")}
+                            active={route().current("addBanners")}
+                        >
+                            Add Banners
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("articles")}
+                            active={route().current("articles")}
+                        >
+                            Add Articles
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
