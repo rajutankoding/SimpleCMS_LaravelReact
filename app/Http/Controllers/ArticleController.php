@@ -84,6 +84,20 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        // $article->delete();
+        // return redirect()->route('articles')->with('success', 'Article deleted successfully.');
+
+        // Simpan path gambar yang ingin dihapus
+        $imagePath = public_path('images/' . $article->image); // Sesuaikan dengan path yang benar
+
+        // Hapus artikel dari database
+        $article->delete();
+
+        // Hapus gambar dari aset (public/images)
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Hapus file dari sistem file
+        }
+
+        return redirect()->route('articles')->with('success', 'Article deleted successfully.');
     }
 }
