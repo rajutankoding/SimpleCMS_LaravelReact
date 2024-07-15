@@ -8,6 +8,7 @@ import "react-quill/dist/quill.snow.css";
 
 const AddArticle = ({ auth }) => {
     const [title, setTitle] = useState("");
+    const [shortDesc, setShortDesc] = useState("");
     const [content, setContent] = useState("");
     const [category, setCategory] = useState("");
     const [image, setImage] = useState(null);
@@ -24,6 +25,7 @@ const AddArticle = ({ auth }) => {
 
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("shortDesc", shortDesc);
         formData.append("content", content);
         formData.append("category", category);
         formData.append("image", image);
@@ -63,6 +65,23 @@ const AddArticle = ({ auth }) => {
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                            htmlFor="title"
+                        >
+                            Short Description
+                        </label>
+                        <input
+                            // disabled={true}
+                            id="shortDesc"
+                            type="text"
+                            value={shortDesc}
+                            onChange={(e) => setShortDesc(e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />

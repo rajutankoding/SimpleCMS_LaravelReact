@@ -40,6 +40,7 @@ class ArticleController extends Controller
         $request->image->move(public_path('images'), $imageName);
         $article = new Article();
         $article->title = $request->input('title');
+        $article->shortDesc = $request->input('shortDesc');
         $article->slug = $slug;
         $article->content = $request->input('content');
         $article->image = $imageName;
