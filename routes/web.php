@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::get('/articles', [ArticleController::class, 'index'])->middleware(['auth'
 Route::post('/articles', [ArticleController::class, 'store'])->name('addArticles');
 Route::delete('/articles/{article:id}', [ArticleController::class, 'destroy'])->name('articleDelete');
 
+// Route::get('/banner', [BannerController::class, 'index'])->middleware(['auth', 'verified'])->name('banner');
 Route::get('/addBanners', function () {
     return Inertia::render('Banners/BannerPages');
 })->middleware(['auth', 'verified'])->name('addBanners');
@@ -37,5 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/banner/create', function () {
+    return Inertia::render('Banners/Banner');
+})->middleware(['auth', 'verified'])->name('banner.create');
+
+Route::post('/banners', [BannerController::class, 'store'])->name('Banner');
+Route::get('/banners', [BannerController::class, 'index'])->middleware(['auth', 'verified'])->name('banners');
 
 require __DIR__ . '/auth.php';
