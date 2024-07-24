@@ -5,7 +5,7 @@ import "react-quill/dist/quill.snow.css";
 
 const Banner = ({ auth }) => {
     const [thumbnail, setThumbnail] = useState("");
-    const [path, setPath] = useState("");
+    const [link, setlink] = useState("");
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
 
@@ -20,8 +20,8 @@ const Banner = ({ auth }) => {
 
         const formData = new FormData();
         formData.append("thumbnail", thumbnail);
-        formData.append("path", path);
-        formData.append("image", image);
+        formData.append("link", link);
+        // formData.append("image", image);
         formData.append("user_id", auth.user.id);
 
         router.post("/banners", formData, {
@@ -65,20 +65,20 @@ const Banner = ({ auth }) => {
                     <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
-                            htmlFor="path"
+                            htmlFor="link"
                         >
                             Link URL
                         </label>
                         <input
-                            id="path"
+                            id="link"
                             type="text"
-                            value={path}
-                            onChange={(e) => setPath(e.target.value)}
+                            value={link}
+                            onChange={(e) => setlink(e.target.value)}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             required
                         />
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label
                             className="block text-gray-700 text-sm font-bold mb-2"
                             htmlFor="image"
@@ -105,7 +105,7 @@ const Banner = ({ auth }) => {
                                 className="w-1/3"
                             />
                         </div>
-                    )}
+                    )} */}
                     <button
                         type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

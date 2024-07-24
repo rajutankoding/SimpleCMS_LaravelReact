@@ -29,8 +29,8 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    href={route("addBanners")}
-                                    active={route().current("addBanners")}
+                                    href={route("banners")}
+                                    active={route().current("banners")}
                                 >
                                     Add Banner
                                 </NavLink>

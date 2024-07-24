@@ -32,12 +32,12 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        // $imageName = time() . '.' . $request->image->extension();
+        // $request->image->move(public_path('images'), $imageName);
         $banner = new Banner();
-        $banner->thumbnail = $request->input('thumbnail');
-        $banner->path = $request->input('path');
-        $banner->image = $imageName;
+        $banner->link_image = $request->input('thumbnail');
+        $banner->link = $request->input('link');
+        // $banner->image = $imageName;
         $banner->user_id = $request->input('user_id');
         $banner->save();
         return redirect()->route('banners')->with('success', 'Banner created successfully.');
@@ -46,7 +46,7 @@ class BannerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Banner $banner)
     {
         $banners = Banner::orderBy('created_at', 'desc')->get()->map(function ($banner) {
             $banner->image_url = url('images/' . $banner->image);
@@ -54,6 +54,13 @@ class BannerController extends Controller
         });
 
         return response()->json($banners);
+
+        // $articles = Article::orderBy('created_at', 'desc')->get()->map(function ($article) {
+        //     $article->image_url = url('images/' . $article->image);
+        //     return $article;
+        // });
+
+        // return response()->json($articles);
     }
 
     /**
@@ -75,8 +82,17 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Banner $banner)
     {
-        //
+       
+        $imagePath = public_path('images/' . $banner->image); 
+        $banner->delete();
+
+       
+        if (file_exists($imagePath)) {
+            unlink($imagePath); 
+        }
+
+        return redirect()->route('banners')->with('success', 'Article deleted successfully.');
     }
 }

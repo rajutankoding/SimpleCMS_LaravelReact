@@ -36,8 +36,14 @@ class ArticleController extends Controller
 
         $slug = Str::slug($request->input('title'), '-');
 
+        // Ganti dengan path jaringan Anda
+        $networkPath = '\\\\192.168.0.2\\xampp2\\htdocs\\imageArticleAminoMobile';
+        
         $imageName = time() . '.' . $request->image->extension();
-        $request->image->move(public_path('images'), $imageName);
+        
+        // Menggunakan move() dengan path jaringan
+        $request->image->move($networkPath, $imageName);
+        
         $article = new Article();
         $article->title = $request->input('title');
         $article->shortDesc = $request->input('shortDesc');
@@ -47,9 +53,21 @@ class ArticleController extends Controller
         $article->category = $request->input('category');
         $article->user_id = $request->input('user_id');
         $article->save();
+        
         return redirect()->route('articles')->with('success', 'Article created successfully.');
+        
     }
 
+    public function shortShow(Article $article)
+    {
+
+        $articles = Article::orderBy('created_at', 'desc')->take(5)->get()->map(function ($article) {
+            $article->image_url = url('images/' . $article->image);
+            return $article;
+        });
+
+        return response()->json($articles);
+    }
     /**
      * Display the specified resource.
      */

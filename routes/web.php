@@ -46,5 +46,6 @@ Route::get('/banner/create', function () {
 
 Route::post('/banners', [BannerController::class, 'store'])->name('Banner');
 Route::get('/banners', [BannerController::class, 'index'])->middleware(['auth', 'verified'])->name('banners');
+Route::delete('/banners/{banner:id}', [BannerController::class, 'destroy'])->name('bannerDelete');
 
 require __DIR__ . '/auth.php';

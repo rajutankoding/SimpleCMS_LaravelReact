@@ -2,8 +2,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import NavLink from "@/Components/NavLink";
 import TableListComponent2 from "@/Components/TableListComponent";
+import BannerCard from "@/Components/BannerCard";
 
-const BannerPages = ({ banners, auth }) => {
+const BannerPages = ({ banner, auth }) => {
+    console.log("Data Banners", banner);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -22,7 +24,28 @@ const BannerPages = ({ banners, auth }) => {
                             <NavLink href={route("banner.create")}>
                                 <button className="btn btn-sm">+ Banner</button>
                             </NavLink>
-                            <TableListComponent2 banners={banners} />
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                                {banner.map(
+                                    (item) => (
+                                        console.log("testing :", item),
+                                        (
+                                            <div
+                                                key={item.id}
+                                                className="justify-center items-center flex"
+                                            >
+                                                <BannerCard
+                                                    imageSource={
+                                                        item.link_image
+                                                    }
+                                                    link={item.link}
+                                                    idd={item.id}
+                                                />
+                                            </div>
+                                        )
+                                    )
+                                )}
+                            </div>
+                            {/* <TableListComponent2 banners={banner} /> */}
                         </div>
                     </div>
                 </div>

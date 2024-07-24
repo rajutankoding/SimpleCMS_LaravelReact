@@ -2,7 +2,7 @@ import { router } from "@inertiajs/react";
 import Modal from "./Modal";
 import { useState } from "react";
 
-const TableListComponent = ({ articles }) => {
+const TableListComponent = ({ articles, banners }) => {
     const handleDelete = (id) => {
         router.delete(`/articles/${id}`);
     };
@@ -71,67 +71,76 @@ const TableListComponent = ({ articles }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {articles.map((item) => (
-                        <tr key={item.id}>
-                            <th>
-                                <label>
-                                    <input
-                                        type="checkbox"
-                                        className="checkbox"
-                                    />
-                                </label>
-                            </th>
-                            <td>
-                                <div className="flex items-center gap-3">
-                                    <div className="avatar">
-                                        <div className="mask mask-squircle h-12 w-12">
-                                            <img
-                                                src={`/images/${item.image}`}
-                                                alt="Avatar Tailwind CSS Component"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div className="font-bold">
-                                            {item.title}
-                                        </div>
-                                        <div className="text-sm opacity-50">
-                                            {item.category}
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: item.content.slice(0, 250),
-                                    }}
-                                    className="flex items-center"
-                                />
-                                {/* {item.content} */}
-                                {/* </div> */}
-                                <br />
-                                <span className="badge badge-ghost badge-sm">
-                                    {item.updated_at}
-                                </span>
-                            </td>
-                            <td>{item.user_id}</td>
-                            <th>
-                                <button
-                                    onClick={() => setModal(true)}
-                                    className="btn btn-ghost btn-xs text-blue-400"
-                                >
-                                    details
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(item.id)}
-                                    className="btn btn-ghost btn-xs text-red-600"
-                                >
-                                    delete
-                                </button>
-                            </th>
-                        </tr>
-                    ))}
+                    {articles
+                        ? articles.map((item) => (
+                              <tr key={item.id}>
+                                  <th>
+                                      <label>
+                                          <input
+                                              type="checkbox"
+                                              className="checkbox"
+                                          />
+                                      </label>
+                                  </th>
+                                  <td>
+                                      <div className="flex items-center gap-3">
+                                          <div className="avatar">
+                                              <div className="mask mask-squircle h-12 w-12">
+                                                  <img
+                                                      src={`/images/${item.image}`}
+                                                      alt="Avatar Tailwind CSS Component"
+                                                  />
+                                              </div>
+                                          </div>
+                                          <div>
+                                              <div className="font-bold">
+                                                  {item.title}
+                                              </div>
+                                              <div className="text-sm opacity-50">
+                                                  {console.log(
+                                                      "testing short desc:",
+                                                      item.shortDesc
+                                                  )}
+                                                  {item.shoryDesc}
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  <td>
+                                      <div
+                                          dangerouslySetInnerHTML={{
+                                              __html: item.content.slice(
+                                                  0,
+                                                  250
+                                              ),
+                                          }}
+                                          className="flex items-center"
+                                      />
+                                      {/* {item.content} */}
+                                      {/* </div> */}
+                                      <br />
+                                      <span className="badge badge-ghost badge-sm">
+                                          {item.updated_at}
+                                      </span>
+                                  </td>
+                                  <td>{item.user_id}</td>
+                                  <th>
+                                      <button
+                                          onClick={() => setModal(true)}
+                                          className="btn btn-ghost btn-xs text-blue-400"
+                                      >
+                                          details
+                                      </button>
+                                      <button
+                                          onClick={() => handleDelete(item.id)}
+                                          className="btn btn-ghost btn-xs text-red-600"
+                                      >
+                                          delete
+                                      </button>
+                                  </th>
+                              </tr>
+                          ))
+                        : null}
                 </tbody>
                 {/* foot */}
                 <tfoot>
